@@ -1,0 +1,1 @@
+document.getElementById("startButton").addEventListener("click",()=>{document.getElementById("message").textContent="좋아요! 오늘의 10분 미션을 시작해보세요 💪";});
