@@ -55,3 +55,60 @@ document.getElementById("startButton").addEventListener("click",()=>{
   gsap.fromTo(msg,{y:10,opacity:0,scale:.9},{y:0,opacity:1,scale:1,duration:.6,ease:"back.out(2)"});
   gsap.fromTo("#startButton",{scale:1},{scale:1.08,duration:.15,yoyo:true,repeat:1});
 });
+
+// One-line comment submission to Google Apps Script
+// Replace this placeholder with the deployed Apps Script Web App URL ending in /exec.
+const APPS_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+const commentForm = document.getElementById("commentForm");
+if (commentForm) {
+  const commentInput = document.getElementById("commentInput");
+  const commentCount = document.getElementById("commentCount");
+  const commentStatus = document.getElementById("commentStatus");
+  const commentSubmit = commentForm.querySelector("button[type='submit']");
+  const websiteField = document.getElementById("websiteField");
+
+  commentInput.addEventListener("input", () => {
+    commentCount.textContent = commentInput.value.length + " / 200";
+  });
+
+  commentForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const message = commentInput.value.trim();
+
+    if (!message) {
+      commentStatus.textContent = "댓글 내용을 입력해 주세요.";
+      commentInput.focus();
+      return;
+    }
+    if (message.length > 200) {
+      commentStatus.textContent = "댓글은 200자 이내로 입력해 주세요.";
+      return;
+    }
+    if (websiteField.value) return;
+    if (!APPS_SCRIPT_URL.startsWith("https://script.google.com/macros/s/") ||
+        !APPS_SCRIPT_URL.endsWith("/exec")) {
+      commentStatus.textContent = "아직 서버 연결이 완료되지 않았어요. Apps Script 배포 URL을 연결해 주세요.";
+      return;
+    }
+
+    commentSubmit.disabled = true;
+    commentStatus.textContent = "댓글 전송을 요청하고 있어요...";
+    try {
+      // text/plain keeps this a simple cross-origin POST. no-cors means the
+      // browser cannot read Google's response, so final storage must be checked in the Sheet.
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ comment: message })
+      });
+      commentInput.value = "";
+      commentCount.textContent = "0 / 200";
+      commentStatus.textContent = "전송 요청을 보냈어요. 시트에 저장됐는지 확인해 주세요.";
+    } catch (error) {
+      commentStatus.textContent = "전송에 실패했어요. 잠시 후 다시 시도해 주세요.";
+    } finally {
+      commentSubmit.disabled = false;
+    }
+  });
+}
