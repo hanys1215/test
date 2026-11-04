@@ -117,6 +117,31 @@
     </section>
   </main>
 
+
+    <section id="comments" class="comments-section">
+      <div class="comments-inner">
+        <div class="section-label">04 / SAY HELLO</div>
+        <div class="comments-heading">
+          <div>
+            <h2>한 줄로<br><span>생각을 남겨줘.</span></h2>
+            <p>MOVE ON에 전하고 싶은 짧은 의견이나 응원을 남겨주세요.</p>
+          </div>
+          <span class="comment-mark" aria-hidden="true">✳</span>
+        </div>
+        <form id="commentForm" class="comment-form">
+          <label class="sr-only" for="commentInput">댓글 내용</label>
+          <input id="commentInput" name="comment" type="text" maxlength="200"
+            placeholder="여기에 한 줄 댓글을 입력해 주세요 (최대 200자)" autocomplete="off" required>
+          <button class="comment-submit" type="submit">보내기 <span>↗</span></button>
+        </form>
+        <div class="comment-meta">
+          <span id="commentCount">0 / 200</span>
+          <span id="commentStatus" role="status" aria-live="polite">남겨주신 의견은 서비스 개선에 활용됩니다.</span>
+        </div>
+        <input type="text" id="websiteField" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+      </div>
+    </section>
+
   <footer><span>MOVE<span>ON</span></span><small>YOUTH FITNESS PLATFORM · 2026</small></footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
