@@ -58,7 +58,7 @@ document.getElementById("startButton").addEventListener("click",()=>{
 
 // One-line comment submission to Google Apps Script
 // Replace this placeholder with the deployed Apps Script Web App URL ending in /exec.
-const APPS_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywmZ5I-JakZw8HAcqG0S4Z9-WtRZhHvG5WRw-VnHt3RUX5lQ_Bwd3lCrNibUSGPT92Hg/exec";
 const commentForm = document.getElementById("commentForm");
 if (commentForm) {
   const commentInput = document.getElementById("commentInput");
